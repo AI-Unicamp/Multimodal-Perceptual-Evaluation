@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Feedback</title>
+    <link rel="stylesheet" href="..\styles\styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body>
+
+    <div class="page-number" id="page_number"></div>
+    
+    <div class="video-container">
+        <div id="player"></div>
+    </div>
+
+    Assita os três vídeos e avalie o movimento de cada um deles. <br>
+
+    <h2>Quão natural é o movimento?</h2>
+
+    <!--
+    <div class="video-feedback red-rounded-box">
+        
+        <h2>Choose Video</h2>
+    </div>
+
+    <div class="statement-box red-rounded-box">
+        <h2>How does the video make you feel?</h2>
+    </div>-->
+
+    <div id="sliders-container" class="slider-container white-rounded-box">
+        
+        <div class="numerical-label-wrapper">
+            <label style="position: absolute; top: 108px; left: 0; width: 100%; height: 1px; text-align: right;">100</label>
+            <label style="position: absolute; top: 134px; left: 0; width: 100%; height: 1px; text-align: right;">80</label>
+            <label style="position: absolute; top: 160px; left: 0; width: 100%; height: 1px; text-align: right;">60</label>
+            <label style="position: absolute; top: 186px; left: 0; width: 100%; height: 1px; text-align: right;">40</label>
+            <label style="position: absolute; top: 212px; left: 0; width: 100%; height: 1px; text-align: right;">20</label>
+            <label style="position: absolute; top: 238px; left: 0; width: 100%; height: 1px; text-align: right;">0</label>
+        </div>
+
+        <div class="word-label-wrapper">
+            <hr style="position: absolute; top: 108px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <label style="position: absolute; top: 121px; left: 0; width: 100%; height: 1px; text-align: right;">Excelente</label>
+            <hr style="position: absolute; top: 134px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <label style="position: absolute; top: 147px; left: 0; width: 100%; height: 1px; text-align: right;">Bom   </label>
+            <hr style="position: absolute; top: 160px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <label style="position: absolute; top: 173px; left: 0; width: 100%; height: 1px; text-align: right;">Razoável</label>
+            <hr style="position: absolute; top: 186px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <label style="position: absolute; top: 199px; left: 0; width: 100%; height: 1px; text-align: right;">Ruim</label>
+            <hr style="position: absolute; top: 212px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <label style="position: absolute; top: 225px; left: 0; width: 100%; height: 1px; text-align: right;">Péssimo</label>
+            <hr style="position: absolute; top: 238px; left: 0; width: 100%; height: 1px; background-color: black;">
+        </div>
+
+        <div class="slider-wrapper">
+            Video 1:
+
+            <hr style="position: absolute; top: 108px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 134px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 160px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 186px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 212px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 238px; left: 0; width: 100%; height: 1px; background-color: black;">
+
+            <div class="video-buttons">
+                <button id="videoBtn1" class="videoBtn">Play</button>
+            </div>
+            <!-- <label for="video1-feedback">Rate Video 1:</label> -->
+            <input type="range" id="video1-feedback" name="video1-feedback" min="0" max="100" step="1" value="50">
+            <div class="score-box" id="score-video1">Razoável</div>
+        </div>
+        <div class="slider-wrapper">
+            Video 2:
+
+            <hr style="position: absolute; top: 108px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 134px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 160px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 186px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 212px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 238px; left: 0; width: 100%; height: 1px; background-color: black;">
+
+            <div class="video-buttons">
+                <button id="videoBtn2" class="videoBtn">Play</button>
+            </div>
+            <!-- <label for="video2-feedback">Rate Video 2:</label> -->
+            <input type="range" id="video2-feedback" name="video2-feedback" min="0" max="100" step="1" value="50">
+            <div class="score-box" id="score-video2">Razoável</div>
+        </div>
+        <div class="slider-wrapper">
+            Video 3:
+
+            <hr style="position: absolute; top: 108px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 134px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 160px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 186px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 212px; left: 0; width: 100%; height: 1px; background-color: black;">
+            <hr style="position: absolute; top: 238px; left: 0; width: 100%; height: 1px; background-color: black;">
+
+            <div class="video-buttons">
+                <button id="videoBtn3" class="videoBtn">Play</button>
+            </div>
+            <!-- <label for="video3-feedback">Rate Video 3:</label> -->
+            <input type="range" id="video3-feedback" name="video3-feedback" min="0" max="100" step="1" value="50">
+            <div class="score-box" id="score-video3">Razoável</div>
+        </div>
+    </div>
+
+    <div id="next-page-btn-container" class="red-rounded-box">
+        <button id="nextPageBtn">Próximo</button>
+    </div>
+
+    
+    <script>
+
+        var myData = {{ data|tojson|safe }};
+
+        document.getElementById('page_number').innerHTML = myData.PageNumber + '/' + myData.PageTotal + ' ' + myData.Part + '/4';
+
+        console.log(myData);
+
+        var player;
+
+        $(document).ready(function () {
+
+            enableSlider(1);
+        
+            console.log('JavaScript is working!');
+
+            var videoScores = {
+                'video1': 50,
+                'video2': 50,
+                'video3': 50,
+            };
+
+            if (myData.VSource === 'local') {
+                // Get the video container element
+                var videoContainer = document.querySelector('.video-container');
+
+                // Create a video element
+                var videoElement = document.createElement('video');
+                videoElement.setAttribute('controls', ''); // Add controls to the video player
+
+                // Create a source element
+                var sourceElement = document.createElement('source');
+                sourceElement.setAttribute('src', myData.URL1); // Set the src attribute to the local video URL
+                sourceElement.setAttribute('type', 'video/mp4');
+
+                // Append the source element to the video element
+                videoElement.appendChild(sourceElement);
+
+                // Append the video element to the video container
+                videoContainer.appendChild(videoElement);
+
+                setHTML5VideoSettings(videoElement);
+
+            } else {
+                // Load the YouTube API
+                var tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api?v=1';
+                tag.onerror = function() {
+                    console.error('Error loading YouTube API script');
+                };
+                tag.onload = function() {
+                    console.log('YouTube API script loaded');
+                    // Manually calling this because the asynchronous call is not reliable
+                    onYouTubeIframeAPIReady();
+                };
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                console.log('YouTube API is loading...');
+                console.log(player)
+            }
+            
+
+            // Attach a click event listener to all buttons with class 'videoBtn'
+            $(".videoBtn").click(function () {
+                // Extract the numeric part from the button's ID
+                var buttonNumber = this.id.replace('videoBtn', '');
+
+                // Use the numeric part as a parameter for handleVideoChange
+                handleVideoChange(buttonNumber);
+            });
+
+            function handleVideoChange(buttonNumber) {
+                if (myData.VSource === 'local') {
+                    // Change the src attribute of the source element
+                    sourceElement.setAttribute('src', myData['URL' + buttonNumber]);
+
+                    // Load the new video
+                    videoElement.load();
+                    enableSlider(buttonNumber);
+                    videoElement.play();
+                    return;
+                } else {
+                    // Load the new video using the YouTube API
+                    player.loadVideoById(myData['URL' + buttonNumber]);
+                    enableSlider(buttonNumber);
+                }
+            }
+
+            function enableSlider(buttonNumber) {
+                
+                document.querySelectorAll('input[type="range"]').forEach(function (slider) {
+                    slider.disabled = true;
+                });
+
+                document.getElementById('video' + buttonNumber + '-feedback').disabled = false;
+            }
+
+            // Handle slider changes
+            function updateScoreBox(slider, scoreBoxId) {
+                var score = parseInt(slider.value);
+
+                var scoreBox = document.getElementById(scoreBoxId);
+                if (score >= 0 && score <= 20) {
+                    scoreBox.innerText = "Péssimo";
+                } else if (score >= 21 && score <= 40) {
+                    scoreBox.innerText = "Ruim";
+                } else if (score >= 41 && score <= 60) {
+                    scoreBox.innerText = "Razoável";
+                } else if (score >= 61 && score <= 80) {
+                    scoreBox.innerText = "Bom";
+                } else {
+                    scoreBox.innerText = "Excelente";
+                }
+
+                var videoId = slider.id.replace('-feedback', '');
+                videoScores[videoId] = score;
+            }
+
+
+            document.querySelectorAll('input[type="range"]').forEach(function (slider) {
+                slider.addEventListener('input', function () {
+                    var scoreBoxId = 'score-' + slider.id.replace('-feedback', '');
+                    updateScoreBox(slider, scoreBoxId);
+                });
+            });
+
+            // Wrap up everything and goes to the next page
+            $("#nextPageBtn").click(function () {
+                sendDataToFlask(videoScores);
+            });
+
+            function sendDataToFlask(videoScores) {
+                $.ajax({
+                    type: "POST",
+                    url: "/process_answer",
+                    data: JSON.stringify({'videoScores': videoScores, 'NextPage': true}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        window.location.href = response.redirect;
+                    },
+                    failure: function (errMsg) {
+                        console.log(errMsg);
+                    }
+                });
+            }
+
+            function saveScoresToFile() {
+                var scoresJSON = JSON.stringify(videoScores, null, 2);
+                var blob = new Blob([scoresJSON], { type: 'text/plain' });
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(blob);
+                a.download = 'video_scores.txt';
+                a.click();
+            }
+
+        });
+
+        function onYouTubeIframeAPIReady() {
+            // Skip if the video source is local
+            if (myData.VSource === 'local') {
+                return;
+            }
+            console.log('YouTube API is ready!');
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: myData.URL1,
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                },
+                playerVars: myData.YTConfig,
+            });
+
+        }
+
+        function setHTML5VideoSettings(video){
+            video.autoplay = false;
+            video.controls = false;
+            video.loop = false;
+            video.muted = true;
+            video.width = 560;
+            video.height = 315;
+            video.preload = 'auto';
+            video.controlsList.add('nodownload');
+        }
+
+        // This function will be called when the player is ready
+        function onPlayerReady(event) {
+            console.log('Player is ready!');
+            console.log(player);
+            // You can perform actions when the player is ready, if needed
+        }
+
+        // This function will be called when the player's state changes
+        function onPlayerStateChange(event) {
+            // You can perform actions based on the player's state changes, if needed
+            console.log('Player changed!');
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Feedback</title>
+    <link rel="stylesheet" href="..\styles\styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body>
+    <div class="page-number" id="page_number"></div>
+    <div class="single-video-container">
+        <div class="single-video" id="player1">
+            <button class="single-play-button" id="play-button1">Play</button>
+        </div>
+    </div>
+
+    <br>
+
+    Considerando a expressividade do movimento, responda: <br>
+
+    <h2>O vídeo corresponde MELHOR a qual personalidade?</h2>
+
+    <div class="radio-feedback">
+        <label><input type="radio" name="response" value="1">Jovial</label>
+        <label><input type="radio" name="response" value="2">Acolhedor</label>
+        <label><input type="radio" name="response" value="3">Formal</label>
+        <label><input type="radio" name="response" value="4">Nenhum ou não sei opinar</label>
+    </div>
+
+    <div id="next-page-btn-container" class="red-rounded-box">
+        <button id="nextPageBtn">Próximo</button>
+    </div>
+    
+    <script>
+
+        var myData = {{ data|tojson|safe }};
+        document.getElementById('page_number').innerHTML = myData.PageNumber + '/' + myData.PageTotal + ' ' + myData.Part + '/4';
+        console.log(myData);
+
+        var player1;
+
+        $(document).ready(function () {
+        
+            console.log('JavaScript is working!');
+
+            if (myData.VSource === 'local') {
+                // Get the video container elements
+                const videoContainer1 = document.getElementById('player1');
+
+                // Create the first video element
+                const video1 = document.createElement('video');
+                video1.className = 'single-video'; // Add the appropriate class
+                video1.setAttribute('controls', ''); // Add controls to the video player
+                const source1 = document.createElement('source');
+                source1.setAttribute('src', myData.URL1); // Set the source URL for player1
+                source1.setAttribute('type', 'video/mp4');
+                video1.appendChild(source1); // Append the source to the video element
+                videoContainer1.appendChild(video1); // Append the video element to the container
+                setHTML5VideoSettings(video1);
+
+            } else {
+                // Load the YouTube API
+                var tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api?v=1';
+                tag.onerror = function() {
+                    console.error('Error loading YouTube API script');
+                };
+                tag.onload = function() {
+                    console.log('YouTube API script loaded');
+                    // Manually calling this because the asynchronous call is not reliable
+                    onYouTubeIframeAPIReady();
+                };
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                console.log(player1)
+            }
+
+            // Attach a click event listener to all buttons with class 'videoBtn'
+            $(".single-play-button").click(function () {
+                if (myData.VSource === 'local') {
+                    var video = document.getElementById('player1').querySelector('video').play();
+                } else {
+                    //TODO: Implement for youtube API
+                    alert('Opção não implementada para vídeos do YouTube!');
+                }
+            });
+
+            // Wrap up everything and goes to the next page
+            $("#nextPageBtn").click(function () {
+                sendDataToFlask();
+            });
+
+            function sendDataToFlask() {
+                // Get all radio buttons with the name "response"
+                const radioButtons = document.getElementsByName('response');
+
+                // Variable to store the selected value
+                let selectedValue = null;
+                let isChecked = false;
+
+                // Loop through each radio button
+                radioButtons.forEach(radioButton => {
+                    // Check if the radio button is checked
+                    if (radioButton.checked) {
+                        // Set the selected value to the value of the checked radio button
+                        selectedValue = radioButton.value;
+                        isChecked = true;
+                    }
+                });
+
+                // Check if any radio button is checked
+                if (!isChecked) {
+                    // Display a message to the user
+                    alert('Por favor, selecione uma opção antes de prosseguir!');
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/process_answer",
+                    data: JSON.stringify({'selectedValue': selectedValue, 'NextPage': true}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        window.location.href = response.redirect;
+                    },
+                    failure: function (errMsg) {
+                        console.log(errMsg);
+                    }
+                });
+            }
+
+        });
+
+        function onYouTubeIframeAPIReady() {
+            // Skip if the video source is local
+            if (myData.VSource === 'local') {
+                return;
+            }
+            player1 = new YT.Player('player1', {
+                height: '315',
+                width: '560',
+                videoId: myData.URL1,
+                events: {
+                    'onReady': onPlayerReady1,
+                    'onStateChange': onPlayerStateChange1
+                },
+                playerVars: myData.YTConfig,
+            });
+
+            // Create Player 2
+            player2 = new YT.Player('player2', {
+                height: '315',
+                width: '560',
+                videoId: myData.URL2, // Replace with your second video ID
+                events: {
+                    'onReady': onPlayerReady2,
+                    'onStateChange': onPlayerStateChange2
+                },
+                playerVars: myData.YTConfig,
+            });
+
+        }
+
+        function setHTML5VideoSettings(video){
+            video.autoplay = false;
+            video.controls = false;
+            video.loop = false;
+            video.muted = true;
+            //video.width = 560;
+            //video.height = 315;
+            video.preload = 'auto';
+            video.controlsList.add('nodownload');
+        }
+
+        // This function will be called when the player is ready
+        function onPlayerReady1(event) {
+            console.log('Player 1 is ready!');
+            // You can perform actions when the player is ready, if needed
+        }
+
+        // This function will be called when the player's state changes
+        function onPlayerStateChange1(event) {
+            // You can perform actions based on the player's state changes, if needed
+            console.log('Player 1 changed!');
+        }
+
+        // This function will be called when the player is ready
+        function onPlayerReady2(event) {
+            console.log('Player 2 is ready!');
+            // You can perform actions when the player is ready, if needed
+        }
+
+        // This function will be called when the player's state changes
+        function onPlayerStateChange2(event) {
+            // You can perform actions based on the player's state changes, if needed
+            console.log('Player 2 changed!');
+        }
+
+    </script>
+</body>
+
+</html>

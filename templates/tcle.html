@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="..\styles\styles.css">
+    <title>Welcome</title>
+</head>
+
+<body>
+    <div class="text-container">
+
+    </div>
+
+
+    <div id="next-page-btn-container" class="red-rounded-box">
+        <button id="previousPageBtn">Anterior</button>
+        <button id="startPageBtn">Começar</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            console.log('JavaScript is working!');
+            // Wrap up everything and goes to the next page
+            $("#startPageBtn").click(function () {
+                sendDataToFlask({'Start': true});
+            });
+
+            $("#previousPageBtn").click(function () {
+                sendDataToFlask({'Previous': 'index'});
+            });
+
+            function sendDataToFlask(pageToGo) {
+                $.ajax({
+                    type: "POST",
+                    url: "/process_answer",
+                    data: JSON.stringify(pageToGo),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            console.log('Success:', data);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('AJAX Error:', xhr.responseText);
+                        console.log("Error status:", status);
+                        console.log("Error message:", error);
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>

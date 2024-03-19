@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="..\styles\styles.css">
+    <title>Welcome</title>
+</head>
+
+<body>
+    <div class="text-container">
+
+        <h1>Parte 3</h1><br />
+
+        Na terceira parte da avaliação, você irá assistir apenas um vídeo por página. <br><br />
+
+        Os vídeos desta parte não possuem áudio.<br><br />
+
+        Você deverá responder qual <b>personalidade</b> corresponde ao vídeo baseado apenas nos movimentos<br><br />
+        
+        Para assistir ao vídeo, clique no botão "Play" e selecione uma das opções:<br>
+        (1) <b>Extrovertido</b><br>
+        (2) <b>Introvertido</b><br>
+        (3) <b>Meio termo ou neutro</b><br>
+        (4) <b>Nenhum ou não sei opinar</b><br><br>
+        
+        Você pode assistir aos vídeos quantas vezes desejar. <br><br />
+        
+        Para começar, clique no botão "Começar". <br><br />
+
+    </div>
+
+
+    <div id="next-page-btn-container" class="red-rounded-box">
+        <button id="startPageBtn">Começar</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            console.log('JavaScript is working!');
+            // Wrap up everything and goes to the next page
+            $("#startPageBtn").click(function () {
+                sendDataToFlask({'Start': true});
+            });
+
+            function sendDataToFlask(pageToGo) {
+                $.ajax({
+                    type: "POST",
+                    url: "/process_answer",
+                    data: JSON.stringify(pageToGo),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            console.log('Success:', data);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('AJAX Error:', xhr.responseText);
+                        console.log("Error status:", status);
+                        console.log("Error message:", error);
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>

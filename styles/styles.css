@@ -1,0 +1,380 @@
+body {
+    background-color: #fff;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.page-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+    font-size: 24px;
+    color: #000000;
+    font: 1.5em tahoma, arial, helvetica, sans-serif;
+}
+
+.session-id {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+    font-size: 24px;
+    color: #000000;
+    font: 1.5em tahoma, arial, helvetica, sans-serif;
+}
+
+/* Text Container */
+.text-container {
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Red rounded boxes style */
+.red-rounded-box {
+    background-color: #DC0C16;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.red-rounded-box h2 {
+    color: #fff;
+}
+
+.red-rounded-box button {
+    background-color: #fff;
+    color: #DC0C16;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.red-rounded-box button:hover {
+    background-color: #DC0C16;
+    color: #fff;
+}
+
+.white-rounded-box {
+    background-color: #ccefff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.white-rounded-box button {
+    background-color: #ccefff;
+    color: #DC0C16;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.white-rounded-box button:hover {
+    background-color: #ccefff;
+    color: #fff;
+}
+
+/* Video styles */
+.video-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.single-video-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px; /* Adjust the max-width as needed */
+    height: 380px;
+}
+
+.single-video {
+    position: relative;
+    width: 95%; /* Adjust the width as needed, leaving some space for margins */
+    box-sizing: border-box;
+    margin-right: 0%; /* Add margin to create space between videos */
+    min-width: 100px; /* Adjust the min-width as needed */
+    text-align: center;
+}
+
+.single-play-button {
+    position: absolute;
+    bottom: 10px; /* Adjust the position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #c8dbff;
+    color: #004080; /* Deep blue color */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* AB Video container */
+.ab-video-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Adjust the max-width as needed */
+    height: 380px;
+}
+
+.video {
+    width: 60vw;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: none;
+}
+
+.ab-video {
+    position: relative;
+    width: 95%; /* Adjust the width as needed, leaving some space for margins */
+    box-sizing: border-box;
+    margin-right: 0%; /* Add margin to create space between videos */
+    min-width: 100px; /* Adjust the min-width as needed */
+    text-align: center;
+}
+
+.ab-play-button {
+    position: absolute;
+    bottom: 10px; /* Adjust the position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #c8dbff;
+    color: #004080; /* Deep blue color */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.ab-video button:hover {
+    background-color: #004080; /* Deep blue color */
+    color: #fff;
+}
+
+.video.active {
+    display: block;
+}
+
+.video iframe {
+    width: 100%;
+    /*aspect-ratio: 16/9;*/
+    height: 400px;
+    border-radius: 20px;
+}
+
+.video-feedback {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    color: #fff; /* White text for contrast */
+}
+
+.video-feedback h2 {
+    color: #fff;
+    font-size: 24px; /* Increased font size for prominence */
+}
+
+.video-feedback button {
+    background-color: #fff;
+    color: #004080; /* Deep blue color */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.radio-feedback {
+    padding: 20px;
+    width: 1170px;
+    margin: 0px auto;
+    text-align: left;
+}
+
+.radio-feedback label {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px; /* Adjust the spacing between radio buttons */
+    border: 1px solid #e0e0e0; /* Add border around each radio button */
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color:#000000;
+    border-radius: 5px; /* Add border radius for rounded corners */
+    padding: 5px; /* Add padding inside the border */
+    text-align: left; /* Align text to the left */
+}
+
+
+.video-buttons {
+    margin-top: 20px;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.video-buttons button {
+    margin: 0 10px;
+}
+
+/* Slider styles */
+.slider-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.slider-wrapper {
+    background-color: #ffffff00;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.word-label-wrapper {
+    background-color: #ffffff00;
+    border-radius: 0px;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.numerical-label-wrapper {
+    background-color: #ffffff00;
+    border-radius: 0px;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.slider-container label {
+    display: block;
+    margin-bottom: 0px;
+    color: #000000;
+}
+
+.slider-container button {
+    background-color: #c8dbff;
+    color: #004080; /* Deep blue color */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.slider-container button:hover {
+    background-color: #004080; /* Deep blue color */
+    color: #fff;
+}
+
+input[type="range"] {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    transform: rotate(90deg);
+    transform-origin: 50% 50%;
+    direction: rtl;
+}
+
+.score-box {
+    background-color: #fff;
+    color: #DC0C16;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-top: 80px;
+}
+
+/* Next page button styles */
+#next-page-btn-container,
+#sliders-container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+#next-page-btn,
+#rate-video-btn,
+#download-scores-btn {
+    background-color: #fff;
+    color: #DC0C16;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#next-page-btn:hover,
+#rate-video-btn:hover,
+#download-scores-btn:hover {
+    background-color: #DC0C16;
+    color: #fff;
+}
+
+.statement-box {
+    background-color: #DC0C16;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    color: #fff;
+}
+
+.statement-box h2 {
+    color: #fff;
+}
