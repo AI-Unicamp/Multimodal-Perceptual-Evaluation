@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Feedback</title>
+    <style>
+        body {
+            background-color: #fff;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Red rounded boxes style */
+        .red-rounded-box {
+            background-color: #DC0C16;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .red-rounded-box h2 {
+            color: #fff;
+        }
+
+        .red-rounded-box button {
+            background-color: #fff;
+            color: #DC0C16;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .red-rounded-box button:hover {
+            background-color: #DC0C16;
+            color: #fff;
+        }
+
+        /* Video styles */
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .video {
+            width: 60vw;
+            max-width: 800px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: none;
+        }
+
+        .video.active {
+            display: block;
+        }
+
+        .video iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+        }
+
+        .video-feedback {
+            padding: 20px;
+            background-color: #004080; /* Deep blue color */
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            color: #fff; /* White text for contrast */
+        }
+
+        .video-feedback h2 {
+            color: #fff;
+            font-size: 24px; /* Increased font size for prominence */
+        }
+
+        .video-feedback button {
+            background-color: #fff;
+            color: #004080; /* Deep blue color */
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .video-feedback button:hover {
+            background-color: #004080; /* Deep blue color */
+            color: #fff;
+        }
+
+        .video-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .video-buttons button {
+            margin: 0 10px;
+        }
+
+        /* Slider styles */
+        .slider-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .slider-wrapper {
+            background-color: #DC0C16;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        .slider-container label {
+            display: block;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-top: 10px;
+            transform: rotate(90deg);
+            transform-origin: 50% 50%;
+            direction: rtl;
+        }
+
+        .score-box {
+            background-color: #fff;
+            color: #DC0C16;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-top: 80px;
+        }
+
+        /* Next page button styles */
+        #next-page-btn-container,
+        #sliders-container {
+            background-color: #DC0C16;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        #next-page-btn,
+        #rate-video-btn,
+        #download-scores-btn {
+            background-color: #fff;
+            color: #DC0C16;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #next-page-btn:hover,
+        #rate-video-btn:hover,
+        #download-scores-btn:hover {
+            background-color: #DC0C16;
+            color: #fff;
+        }
+
+        .statement-box {
+            background-color: #DC0C16;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            color: #fff;
+        }
+
+        .statement-box h2 {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="video-container">
+        <div class="video active" id="video1">
+            <iframe src="https://www.youtube.com/embed/taNwhaBQS-0?autoplay=0&controls=0&mute=0&loop=0&start=0&end=0&rel=0&modestbranding=1&showinfo=0&enablejsapi=1&color=red" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video" id="video2">
+            <iframe src="https://www.youtube.com/embed/oWzzNvcxY4w?autoplay=0&controls=0&mute=0&loop=0&start=0&end=0&rel=0&modestbranding=1&showinfo=0&enablejsapi=1&color=red" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video" id="video3">
+            <iframe src="https://www.youtube.com/embed/oPEU9DO6tBw?autoplay=0&controls=0&mute=0&loop=0&start=0&end=0&rel=0&modestbranding=1&showinfo=0&enablejsapi=1&color=red" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video" id="video4">
+            <iframe src="https://www.youtube.com/embed/ozhHrzOXZkI?autoplay=0&controls=0&mute=0&loop=0&start=0&end=0&rel=0&modestbranding=1&showinfo=0&enablejsapi=1&color=red" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="video-feedback red-rounded-box">
+        <div class="statement-box red-rounded-box">
+            <h2>How does the video make you feel?</h2>
+        </div>
+        <h2>Choose Video</h2>
+        <div class="video-buttons">
+            <button onclick="showVideo('video1')">Video 1</button>
+            <button onclick="showVideo('video2')">Video 2</button>
+            <button onclick="showVideo('video3')">Video 3</button>
+            <button onclick="showVideo('video4')">Video 4</button>
+        </div>
+    </div>
+
+    <div id="sliders-container" class="slider-container red-rounded-box">
+        <div class="slider-wrapper">
+            <label for="video1-feedback">Rate Video 1:</label>
+            <input type="range" id="video1-feedback" name="video1-feedback" min="0" max="100" step="1" value="50">
+            <div class="score-box" id="score-video1">50</div>
+        </div>
+        <div class="slider-wrapper">
+            <label for="video2-feedback">Rate Video 2:</label>
+            <input type="range" id="video2-feedback" name="video2-feedback" min="0" max="100" step="1" value="50">
+            <div class="score-box" id="score-video2">50</div>
+        </div>
+        <div class="slider-wrapper">
+            <label for="video3-feedback">Rate Video 3:</label>
+            <input type="range" id="video3-feedback" name="video3-feedback" min="0" max="100" step="1" value="50">
+            <div class="score-box" id="score-video3">50</div>
+        </div>
+        <div class="slider-wrapper">
+            <label for="video4-feedback">Rate Video 4:</label>
+            <input type="range" id="video4-feedback" name="video4-feedback" min="0" max="100" step="1" value="50">
+            <div class="score-box" id="score-video4">50</div>
+        </div>
+    </div>
+
+    <div id="next-page-btn-container" class="red-rounded-box">
+        <button id="rate-video-btn">Rate Videos</button>
+        <button id="download-scores-btn" onclick="saveScoresToFile()">Download Scores</button>
+    </div>
+
+    <script>
+        var videoScores = {
+            'video1': 50,
+            'video2': 50,
+            'video3': 50,
+            'video4': 50
+        };
+
+        var player;
+
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: 'bpOR_HuHRNs',
+            });
+            document.getElementById('resume').onclick = function () {
+                player.playVideo();
+            };
+            document.getElementById('pause').onclick = function () {
+                player.pauseVideo();
+            };
+        }
+
+        function showVideo(videoId) {
+            document.querySelectorAll('.video').forEach(function (video) {
+                video.classList.remove('active');
+            });
+
+            // Pause the currently playing video
+            if (player) {
+                player.pauseVideo();
+            }
+
+            document.getElementById(videoId).classList.add('active');
+        }
+
+        function updateScoreBox(slider, scoreBoxId) {
+            var score = parseInt(slider.value);
+
+            var scoreBox = document.getElementById(scoreBoxId);
+            if (score >= 0 && score <= 20) {
+                scoreBox.innerText = "Bad";
+            } else if (score >= 21 && score <= 40) {
+                scoreBox.innerText = "Poor";
+            } else if (score >= 41 && score <= 60) {
+                scoreBox.innerText = "Fair";
+            } else if (score >= 61 && score <= 80) {
+                scoreBox.innerText = "Good";
+            } else {
+                scoreBox.innerText = "Excellent";
+            }
+
+            var videoId = slider.id.replace('-feedback', '');
+            videoScores[videoId] = score;
+        }
+
+        document.querySelectorAll('input[type="range"]').forEach(function (slider) {
+            slider.addEventListener('input', function () {
+                var scoreBoxId = 'score-' + slider.id.replace('-feedback', '');
+                updateScoreBox(slider, scoreBoxId);
+            });
+        });
+
+        function saveScoresToFile() {
+            var scoresJSON = JSON.stringify(videoScores, null, 2);
+            var blob = new Blob([scoresJSON], { type: 'text/plain' });
+            var a = document.createElement('a');
+            a.href = window.URL.createObjectURL(blob);
+            a.download = 'video_scores.txt';
+            a.click();
+        }
+    </script>
+</body>
+
+</html>
