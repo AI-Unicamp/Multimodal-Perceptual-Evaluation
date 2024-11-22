@@ -1,4 +1,5 @@
 # Multimodal-Perceptual-Evaluation
+[![DOI](https://zenodo.org/badge/774352023.svg)](https://doi.org/10.5281/zenodo.14206744)
 
 Welcome to the Multimodal Perceptual Evaluation repository! This repository houses the code necessary to set up and execute perceptual evaluations encompassing diverse media forms (currently supporting video evaluation). Powered by Python Flask, the evaluation system manages server-client interactions, facilitating user participation both locally and online.
 
@@ -56,6 +57,7 @@ This project was created and it is maintaned by students and researchers of the 
 ## Reference
 
 If you find this library useful, please consider acknowledging it in your work.
+[![DOI](https://zenodo.org/badge/774352023.svg)](https://doi.org/10.5281/zenodo.14206744)
 
 This library was inspired mainly by [webMUSHRA](https://github.com/audiolabs/webMUSHRA) and [HEMVIP](https://github.com/jonepatr/hemvip).
 
